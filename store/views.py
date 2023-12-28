@@ -163,9 +163,9 @@ def delivery_estimate_view(request):
         country = data.get('country')
         city = data.get('city')
         # Если в базе DATA_PRICE есть и страна (country) и существует город(city), то вернуть JsonResponse со словарём, {"price": значение стоимости доставки}
-        if country in DATA_PRICE.keys():
-            if city in DATA_PRICE[country].keys():
-                price = {'price': DATA_PRICE[country][city]}
+        if country in DATA_PRICE:
+            if city in DATA_PRICE[country]:
+                price = {'price': DATA_PRICE[country][city]["price"]}
                 return JsonResponse(price)
                 # Если в базе DATA_PRICE есть страна, но нет города, то вернуть JsonResponse со словарём, {"price": значение фиксированной стоимости доставки}
             else:
