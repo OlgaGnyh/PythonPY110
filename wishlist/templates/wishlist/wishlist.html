@@ -1,0 +1,137 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Избранное</title>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="hero-wrap hero-bread" style="background-image: url('static/images/bg_1.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"></span></p>
+            <h1 class="mb-0 bread">Избранное</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th></th>
+						        <th></th>
+						        <th>Продукт</th>
+						        <th>Цена, &#x20bd</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><a href="products/bell_pepper.html">
+									<div class="img" style="background-image:url(static/images/product-1.jpg);"></div>
+								</a></td>
+						        
+						        <td class="product-name">
+						        	<h3>Болгарский перец</h3>
+						        	<p>Сочный и яркий, он добавит красок и вкуса в ваши блюда.</p>
+						        </td>
+						        
+						        <td class="price"><del>300.00</del> 210.00</td>
+						      </tr><!-- END TR-->
+
+						      <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><a href="products/strawberry.html">
+									<div class="img" style="background-image:url(static/images/product-2.jpg);"></div>
+								</a></td>
+						        
+						        <td class="product-name">
+						        	<h3>Клубника</h3>
+						        	<p>Сладкая и ароматная клубника, полная витаминов, чтобы сделать ваш день ярче.</p>
+						        </td>
+						        
+						        <td class="price">500.00</td>
+						      </tr><!-- END TR-->
+
+						      <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><a href="products/green_beans.html">
+									<div class="img" style="background-image:url(static/images/product-3.jpg);"></div>
+								</a></td>
+						        
+						        <td class="product-name">
+						        	<h3>Стручковая фасоль</h3>
+						        	<p>Зеленая натуральность и богатство белка для вашей здоровой диеты.</p>
+						        </td>
+						        
+						        <td class="price">250.00</td>
+
+						      </tr><!-- END TR-->
+
+						      <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><a href="products/purple_cabbage.html">
+									<div class="img" style="background-image:url(static/images/product-4.jpg);"></div>
+								</a></td>
+						        
+						        <td class="product-name">
+						        	<h3>Краснокочанная капуста</h3>
+						        	<p>Удивите своих гостей экзотическим вкусом и цветом ваших блюд.</p>
+						        </td>
+						        
+						        <td class="price">90.00</td>
+						      </tr><!-- END TR-->
+
+						      <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><a href="products/tomatoe.html">
+									<div class="img" style="background-image:url(static/images/product-5.jpg);"></div>
+								</a></td>
+						        
+						        <td class="product-name">
+						        	<h3>Помидоры</h3>
+						        	<p>Свежие и сочные помидоры для идеальных салатов и соусов.</p>
+						        </td>
+						        
+						        <td class="price"><del>240.00</del> 180.00</td>
+						      </tr><!-- END TR-->
+
+						      <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><a href="products/brocolli.html">
+									<div class="img" style="background-image:url(static/images/product-6.jpg);"></div>
+								</a></td>
+						        
+						        <td class="product-name">
+						        	<h3>Брокколи</h3>
+						        	<p>Здоровье в каждом кусочке, чтобы укрепить вашу иммунную систему.</p>
+						        </td>
+						        
+						        <td class="price">320.00</td>
+						      </tr><!-- END TR-->
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+			</div>
+		</section>
+
+
+
+{% endblock %}
