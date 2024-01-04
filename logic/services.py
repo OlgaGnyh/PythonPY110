@@ -154,3 +154,81 @@ if __name__ == "__main__":
     print(remove_from_cart('0'))  # False
     print(remove_from_cart('1'))  # True
     print(view_in_cart())  # {'products': {'2': 1}}
+
+def add_user_to_wishlist(request, username: str) -> None:
+    """
+    Добавляет пользователя в базу данных корзины, если его там не было.
+
+    :param username: Имя пользователя
+    :return: None
+    """
+    wishlist_users = view_in_wishlist(request)  # Чтение всей базы корзин
+    wishlist = wishlist_users.get(username)  # Получение корзины конкретного пользователя
+
+    if not wishlist:  # Если пользователя до настоящего момента не было в корзине, то создаём его и записываем в базу
+        with open('wishlist.json', mode='w', encoding='utf-8') as f:
+            wishlist_users[username] = {'products': []}
+            json.dump(wishlist_users, f)
+
+def view_in_wishlist(request) -> dict:
+    """
+    Просматривает содержимое wishlist.json
+
+    :return: Содержимое 'wishlist.json'
+    """
+    if os.path.exists('wishlist.json'):  # Если файл существует
+        with open('wishlist.json', encoding='utf-8') as f:
+            return json.load(f)
+
+    user = get_user(request).username
+    wishlist = {user: {'products': []}}  # Создаём пустую корзину
+    with open('wishlist.json', mode='x', encoding='utf-8') as f:   # Создаём файл и записываем туда пустую корзину
+        json.dump(wishlist, f)
+
+    return wishlist
+
+
+def add_to_wishlist(request, id_product: str) -> bool:
+    """
+    Добавляет продукт в избранное. Если нет данного продукта, то добавляет его id.
+    :param id_product: Идентификационный номер продукта в виде строки.
+    :return: Возвращает True в случае успешного добавления, а False в случае неуспешного добавления(товара по id_product
+    не существует).
+    """
+    wishlist_users = view_in_wishlist(request)
+    wishlist = wishlist_users[get_user(request).username]
+
+    # существует ли такой товар в избранном, если нет, то перед тем как его добавить - проверьте есть ли такой
+    # id товара в вашей базе данных DATABASE, чтобы уберечь себя от добавления несуществующего товара.
+    if id_product in [product for product in DATABASE.keys()]:
+        if id_product not in [prod for prod in wishlist["products"]]:
+
+            wishlist['products'].append(id_product)
+        with open('wishlist.json', 'w', encoding='utf-8') as f:
+                json.dump(wishlist_users, f)
+        return True
+    else:
+        return False
+
+
+def remove_from_wishlist(request, id_product: str) -> bool:
+    """
+    Удаляет позицию продукта из избранного. Если в избранном есть такой продукт, то удаляется ключ в словаре
+    с этим продуктом.
+
+    :param id_product: Идентификационный номер продукта в виде строки.
+    :return: Возвращает True в случае успешного удаления, а False в случае неуспешного удаления(товара по id_product
+    не существует).
+    """
+    wishlist_users = view_in_wishlist(request)
+    wishlist = wishlist_users[get_user(request).username]
+    # существует ли такой товар в корзине, если нет, то возвращаем False.
+    if id_product not in [prod for prod in wishlist["products"]]:
+        return False
+    # Если существует товар, то удаляем ключ 'id_product' у wishlist['products'].
+    else:
+        wishlist["products"].remove(id_product)
+    # записать обновленные данные cart в 'cart.json'
+        with open('wishlist.json', 'w', encoding='utf-8') as f:
+            json.dump(wishlist_users, f)
+        return True
