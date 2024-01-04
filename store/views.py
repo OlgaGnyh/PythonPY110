@@ -36,23 +36,24 @@ def products_view(request):
 
 def shop_view(request):
     if request.method == "GET":
-        with open('store/shop.html', encoding="utf-8") as f:
-            data = f.read()  # Читаем HTML файл
-        # return HttpResponse(data)  # Отправляем HTML файл как ответ
-        return render(request,
-                      'store/shop.html',
-                      context={"products": DATABASE.values()})
-        # if ordering_key := request.GET.get("ordering"):
-        #     if request.GET.get("reverse") in ('true', 'True'):
-        #         data = filtering_category(DATABASE, category_key, ordering_key,
-        #                                   True)
-        #     else:
-        #         data = filtering_category(DATABASE, category_key, ordering_key)
-        # else:
-        #     data = filtering_category(DATABASE, category_key)
-        # return render(request, 'store/shop.html',
-        #               context={"products": data,
-        #                        "category": category_key})
+        # with open('store/shop.html', encoding="utf-8") as f:
+        #     data = f.read()  # Читаем HTML файл
+        # # return HttpResponse(data)  # Отправляем HTML файл как ответ
+        # return render(request,
+        #               'store/shop.html',
+        #               context={"products": DATABASE.values()})
+        category_key = request.GET.get("category")
+        if ordering_key := request.GET.get("ordering"):
+            if request.GET.get("reverse") in ('true', 'True'):
+                data = filtering_category(DATABASE, category_key, ordering_key,
+                                          True)
+            else:
+                data = filtering_category(DATABASE, category_key, ordering_key)
+        else:
+            data = filtering_category(DATABASE, category_key)
+        return render(request, 'store/shop.html',
+                      context={"products": data,
+                               "category": category_key})
 
 def products_page_view(request, page):
     if request.method == "GET":
@@ -61,14 +62,16 @@ def products_page_view(request, page):
                 if data['html'] == page:
                     with open(f'store/products/{page}.html', encoding="utf-8") as f:
                         page_product = f.read()
-                    return HttpResponse(page_product)
+                    # return HttpResponse(page_product)
+                    return render(request, "store/product.html", context={"product": data})
 
         elif isinstance(page, int):
             data = DATABASE.get(str(page))
             if data:
                 with open(f'store/products/{data["html"]}.html', encoding="utf-8") as f:
                     page_product = f.read()
-                return HttpResponse(page_product)
+                # return HttpResponse(page_product)
+                return render(request, "store/product.html", context={"product": data})
 
         return HttpResponse(status=404)
 

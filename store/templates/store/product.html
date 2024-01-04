@@ -2,14 +2,14 @@
 {%load static%}
 
 {% block title %}
-<title>Bell Pepper</title>
+<title>О товаре</title>
 {% endblock %}
 
 {% block content %}
 
 
 
-    <div class="hero-wrap hero-bread" style="background-image: url('../static/images/bg_1.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url({% static 'store/images/bg_1.jpg' %});">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -24,13 +24,13 @@
     	<div class="container">
     		<div class="row">
     			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="../static/images/product-1.jpg" class="image-popup"><img src="../static/images/product-1.jpg" class="img-fluid" alt="Colorlib Template"></a>
+    				<a href="{% static product.url %}" class="image-popup"><img src="{% static product.url %}" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-    				<h3>Болгарский перец</h3>
+    				<h3>{{product.name}}</h3>
     				<div class="rating d-flex">
 							<p class="text-left mr-4">
-								<a href="#" class="mr-2">4.9</a>
+								<a href="#" class="mr-2">{{product.rating}}</a>
 								<a href="#"><span class="ion-ios-star-outline"></span></a>
 								<a href="#"><span class="ion-ios-star-outline"></span></a>
 								<a href="#"><span class="ion-ios-star-outline"></span></a>
@@ -38,14 +38,19 @@
 								<a href="#"><span class="ion-ios-star-outline"></span></a>
 							</p>
 							<p class="text-left mr-4">
-								<a href="#" class="mr-2" style="color: #000;">250 <span style="color: #bbb;">Отзывов</span></a>
+								<a href="#" class="mr-2" style="color: #000;">{{product.review}} <span style="color: #bbb;">Отзывов</span></a>
 							</p>
 							<p class="text-left">
-								<a href="#" class="mr-2" style="color: #000;">600 <span style="color: #bbb;">Продано</span></a>
+								<a href="#" class="mr-2" style="color: #000;">{{product.sold_value}} <span style="color: #bbb;">Продано</span></a>
 							</p>
 						</div>
-    				<p class="price"><span><del>&#x20bd 300.00</del> &#x20bd 210.00</span></p>
-    				<p>Сочный и яркий, он добавит красок и вкуса в ваши блюда.
+    				<p class="price">
+						{% if product.discount %}
+						<span><del>&#x20bd {{product.price_before}}</del> &#x20bd {{product.price_after}}</span></p>
+					    {% else %}
+					    <span>&#x20bd {{product.price_after}}</span></p>
+					    {% endif %}
+    				<p>	{{product.description}}
 						</p>
 						<div class="row mt-4">
 							<div class="col-md-6">
@@ -77,7 +82,7 @@
 	          	</div>
 	          	<div class="w-100"></div>
 	          	<div class="col-md-12">
-	          		<p style="color: #000;">500 кг в наличии на складе</p>
+	          		<p style="color: #000;">{{product.weight_in_stock}} кг в наличии на складе</p>
 	          	</div>
           	</div>
           	<p><a href="cart.html" class="btn btn-black py-3 px-5">Добавить в корзину</a></p>
@@ -99,7 +104,7 @@
     		<div class="row">
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="green_beans.html" class="img-prod"><img class="img-fluid" src="../static/images/product-3.jpg" alt="Colorlib Template">
+    					<a href="green_beans.html" class="img-prod"><img class="img-fluid" src="{% static 'store/images/product-3.jpg'%}" alt="Colorlib Template">
 	    					<div class="overlay"></div>
 	    				</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -130,7 +135,7 @@
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="purple_cabbage.html" class="img-prod"><img class="img-fluid" src="../static/images/product-4.jpg" alt="Colorlib Template">
+    					<a href="purple_cabbage.html" class="img-prod"><img class="img-fluid" src="{% static 'store/images/product-4.jpg'%}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -161,7 +166,7 @@
     			</div>
 				<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="tomatoes.html" class="img-prod"><img class="img-fluid" src="../static/images/product-5.jpg" alt="Colorlib Template">
+    					<a href="tomatoes.html" class="img-prod"><img class="img-fluid" src="{% static 'store/images/product-5.jpg'%}" alt="Colorlib Template">
     						<span class="status">25%</span>
     						<div class="overlay"></div>
     					</a>
@@ -194,7 +199,7 @@
     			</div>
 				<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="broccoli.html" class="img-prod"><img class="img-fluid" src="../static/images/product-6.jpg" alt="Colorlib Template">
+    					<a href="broccoli.html" class="img-prod"><img class="img-fluid" src="{% static 'store/images/product-6.jpg'%}" alt="Colorlib Template">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
