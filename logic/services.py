@@ -197,18 +197,17 @@ def add_to_wishlist(request, id_product: str) -> bool:
     """
     wishlist_users = view_in_wishlist(request)
     wishlist = wishlist_users[get_user(request).username]
-
+    if wishlist_users.get(''):
+        return False
     # существует ли такой товар в избранном, если нет, то перед тем как его добавить - проверьте есть ли такой
     # id товара в вашей базе данных DATABASE, чтобы уберечь себя от добавления несуществующего товара.
     if id_product in [product for product in DATABASE.keys()]:
-        if id_product not in [prod for prod in wishlist["products"]]:
-
+        if id_product not in wishlist["products"]:
             wishlist['products'].append(id_product)
-        with open('wishlist.json', 'w', encoding='utf-8') as f:
-                json.dump(wishlist_users, f)
-        return True
-    else:
-        return False
+            with open('wishlist.json', 'w', encoding='utf-8') as f:
+                    json.dump(wishlist_users, f)
+            return True
+    return False
 
 
 def remove_from_wishlist(request, id_product: str) -> bool:

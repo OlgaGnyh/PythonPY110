@@ -25,7 +25,7 @@ def wishlist_view(request):
         # отображение избранного. Путь до HTML - wishlist/wishlist.html
 
 
-@login_required(login_url='login:login_view')
+# @login_required(login_url='login:login_view')
 def wishlist_add_json(request, id_product: str):
     """
     Добавление продукта в избранное и возвращение информации об успехе или неудаче в JSON
