@@ -139,8 +139,6 @@ def remove_from_cart(request, id_product: str) -> bool:
         return True
 
 
-
-
 if __name__ == "__main__":
     # Проверка работоспособности функций view_in_cart, add_to_cart, remove_from_cart
     # Для совпадения выходных значений перед запуском скрипта удаляйте появляющийся файл 'cart.json' в папке
@@ -154,6 +152,7 @@ if __name__ == "__main__":
     print(remove_from_cart('0'))  # False
     print(remove_from_cart('1'))  # True
     print(view_in_cart())  # {'products': {'2': 1}}
+
 
 def add_user_to_wishlist(request, username: str) -> None:
     """
@@ -169,6 +168,7 @@ def add_user_to_wishlist(request, username: str) -> None:
         with open('wishlist.json', mode='w', encoding='utf-8') as f:
             wishlist_users[username] = {'products': []}
             json.dump(wishlist_users, f)
+
 
 def view_in_wishlist(request) -> dict:
     """
@@ -197,7 +197,7 @@ def add_to_wishlist(request, id_product: str) -> bool:
     """
     wishlist_users = view_in_wishlist(request)
     wishlist = wishlist_users[get_user(request).username]
-    if wishlist_users.get(''):
+    if not get_user(request).username:   # если нет пользователя, то возвращает False и требует залогинится
         return False
     # существует ли такой товар в избранном, если нет, то перед тем как его добавить - проверьте есть ли такой
     # id товара в вашей базе данных DATABASE, чтобы уберечь себя от добавления несуществующего товара.
